@@ -1,22 +1,27 @@
 <script setup>
 import { getIDPokemon } from '@/utils';
+import { useRouter } from 'vue-router';
 
-const props = defineProps({
-  pokemon: Object
-});
+const props = defineProps({ pokemon: Object });
+const router = useRouter();
+
+function goToDetail() {
+  router.push(`/pokemon/${props.pokemon.name}`);
+}
 </script>
 
 <template>
-  <div class="pokemon-item">
-    <div class="pokemon-id">
-      #{{ getIDPokemon(props.pokemon.url) }}
-    </div>
-    <img 
-      :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getIDPokemon(props.pokemon.url)}.png`" 
-      alt="Pokemon Sprite" 
-      class="pokemon-image"
-    />
+  <div class="pokemon-item" @click="goToDetail">
+    <div class="pokemon-id">#{{ getIDPokemon(props.pokemon.url) }}</div>
+    <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getIDPokemon(props.pokemon.url)}.png`" alt="Pokemon Sprite" class="pokemon-image" />
     <div class="pokemon-name">{{ props.pokemon.name }}</div>
+    <div class="pokemon-types">
+        <span v-for="type in props.pokemon.types" 
+            :key="type" 
+            :class="['pokemon-type', type]">
+            {{ type }}
+        </span>
+    </div>
   </div>
 </template>
 <style>
@@ -80,7 +85,7 @@ img{
     font-weight: bold;
     text-transform: capitalize;
 }
-.types {
+.pokemon-types {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,21 +93,22 @@ img{
     margin-top: 10px;
 }
 
-.types__item {
+.pokemon-type {
     font-size: 13px;
     border-radius: 5px;
     font-weight: 500;
     line-height: 20px;
-    margin: 3px 2px;
+    margin: 0px 2px;
     padding: 2px 5px;
     text-transform: capitalize;
+    font-weight: bold;
 }
 
 .pokemon-item {
     border-radius: 15px;
     padding: 10px;
     text-align: center;
-    height: 245px;
+    height: 250px;
     transition: transform 0.2s ease;
     border: 1px solid rgb(230, 230, 230);
     cursor: pointer;
@@ -206,25 +212,25 @@ img{
 }
 
 @media screen and (max-width: 1200px) {
-    .items {
+    .pokemon-list {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media screen and (max-width: 960px) {
-    .items {
+    .pokemon-list {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media screen and (max-width: 768px) {
-    .items {
+    .pokemon-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media screen and (max-width: 480px) {
-    .items {
+    .pokemon-list {
         grid-template-columns: 1fr;
     }
 }

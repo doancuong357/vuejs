@@ -1,5 +1,6 @@
 {
   "name": "vue-project",
+  "homepage": "https://doancuong357.github.io/vuejs/",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,7 +11,9 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "gh-pages": "^6.3.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
